@@ -1,2 +1,2 @@
 # iotcenter
-udp tcp mqtt coap
+1.数据服务器支持udp tcp.

@@ -1,0 +1,233 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>云平台WebSocket API接口测试</title>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="description" content="This is my page">
+  </head>
+  
+	<body onload="myfunction()">
+		<b>说明：硬件地址指向114.116.23.249 TCP端口9001;UDP端口9002;WebSocket端口8080 </b>
+		<br>UDP硬件示例 68 61 45 23 41 90 76 45 60 81 03 AA BB
+		<br>TCP硬件示例 68 61 45 23 41 90 76 45 60 81 03 CC DD 0D 0A 26 0D 0A
+		<b></b>
+		<br><br>
+			WebSocket API地址:<br><input type="text" name="ws_address" id="ws_address" value="ws://192.168.0.103:8080" size="30">
+		<br><br>
+			<b>1、添加设备</b>
+			<br>设备IMEI号:
+			<br><input type="text" name="register_imei" id="register_imei" value="6145234190764560" size="30">
+		<br>
+			返回:<br><input type="text" name="return_register_imei" id="return_register_imei" value="" size="30">
+		<br>
+			<button id="bt" onclick="subRegister()" style="color:black;">确认添加</button><br/>
+		
+		<br>
+			<b>2、删除设备</b>
+			<br>设备IMEI号:
+			<br><input type="text" name="delete_imei" id="delete_imei" value="6145234190764560" size="30">
+		    <br>设备token:
+			<br><input type="text" name="delete_imei_token" id="delete_imei_token" value="98baa7eb6cafa0874d943465d0958c75" size="30">
+		
+		<br>
+			返回:<br><input type="text" name="return_delete_imei" id="return_delete_imei" value="" size="30">
+		<br>
+			<button id="bt" onclick="subDelete()" style="color:black;">确认删除</button><br/>
+		<br>
+			<b>3、修改设备</b>
+			<br>源设备IMEI号:
+			<br><input type="text" name="src_imei" id="src_imei" value="6145234190764560" size="30">
+		    <br>源设备token:
+			<br><input type="text" name="src_imei_token" id="src_imei_token" value="98baa7eb6cafa0874d943465d0958c75" size="30">
+			<br>新设备IMEI号:
+			<br><input type="text" name="dst_imei" id="dst_imei" value="6145234190764561" size="30">
+		    <br>新设备备注:
+			<br><input type="text" name="dst_comment" id="dst_comment" value="LoRa传感器终端" size="30">
+		
+		<br>
+			返回:<br><input type="text" name="return_update_imei" id="return_update_imei" value="" size="30">
+		<br>
+			<button id="bt" onclick="subUpdate()" style="color:black;">确认修改</button><br/>
+		<br>
+		
+		
+		<br>
+		订阅的数据(接收)<a id="receive_number">0</a>
+		<br>
+			<textarea type="text" name="sub" id="sub" rows="3" cols="60"></textarea>
+		<br>
+		发布的数据(发送)
+		<br>
+			<textarea type="text" name="pub" id="pub" rows="3" cols="60"></textarea>
+		<br>
+		
+		
+			<b>4、数据订阅</b>
+			<br>设备IMEI号:<br><input type="text" name="sub_imei" id="sub_imei" value="6145234190764560" size="30">
+			<br>设备token: <br><input type="text" name="sub_imei_token" id="sub_imei_token" value="98baa7eb6cafa0874d943465d0958c75" size="30">
+			<br><button onclick="sub_imei()">请求订阅设备</button> 
+			<br>状态返回:<br><input type="text" name="return_sub_imei" id="return_sub_imei" value="" size="30">
+		<br><br>
+		
+			<b>5、数据发布</b>
+			<br>设备IMEI号:<br><input type="text" name="pub_imei" id="pub_imei" value="6145234190764560" size="30">
+			<br>设备token: <br><input type="text" name="pub_imei_token" id="pub_imei_token" value="98baa7eb6cafa0874d943465d0958c75" size="30">
+			<br>内容:<br><input type="text" name="pub_imei_content" id="pub_imei_content" value="AE" size="30"><button onclick="pub_imei_content()">发布数据</button>
+	   
+      <div id="div"></div>
+  
+  </body>
+  
+  <script type="text/javascript">
+	  var number = 0;
+      var ws; // 就是一个通信管道
+	  var websocket_token;
+      var target;// = "ws://114.116.23.249:8080";//服务端的url，注意以ws开头  websocket和http同为应用层协议
+      function myfunction(){
+          //三个判断用于获取ws通信管道（浏览器兼容）
+		  target = document.getElementById("ws_address").value;
+          if('WebSocket' in window){
+              ws = new WebSocket(target);
+          }else if('MozWebSocket' in window){
+              ws = new MozMozWebSocket(target);
+          }else{
+              alert("WebSocket is not supported by this browse");
+              return;
+          }
+          //链接开启会执行方法
+          //与服务器连接成功执行的方法
+          ws.onopen = function(){
+			/*var user_name = document.getElementById("user_name").value;
+			var user_password = document.getElementById("user_password").value;
+			var msg= '{"user_name":"'+user_name+'","user_password":"'+user_password+'"} ';
+			ws.send(msg);
+			*/
+			alert("OK~");
+          } 
+            
+          //以上两个实际用处并不多，主要是下面的     
+          //服务器又信息返回就执行方法
+          ws.onmessage=function(event){
+			//document.getElementById("sub").value = event.data;
+			var obj = eval('(' + event.data + ')');
+			if(obj.type == "register")
+			{
+				document.getElementById("return_register_imei").value = event.data;
+			}
+			if(obj.type == "delete")
+			{
+				document.getElementById("return_delete_imei").value = event.data;
+			}
+			if(obj.type == "update")
+			{
+				document.getElementById("return_update_imei").value = event.data;
+			}
+			if(obj.type == "address")
+			{
+				document.getElementById("return_sub_imei").value = event.data;
+			}
+			
+			if(obj.type == "content" && obj.address == "6145234190764560" && obj.token == "98baa7eb6cafa0874d943465d0958c75")
+			{
+				//number = 1234567890123;
+				document.getElementById("sub").value = obj.msg;
+				document.getElementById("receive_number").innerHTML = ++number;
+			}
+			  
+          };
+		     
+		//断开连接会执行方法
+		  ws.onclose = function(){
+			  //alert("断开le ！");
+		  }
+		  
+      };
+      
+      function send(){
+          //点击发送按钮就把输入框里的内容发送给服务器，并把输入框的内容清空
+          var msg = document.getElementById("msg").value;
+          ws.send(msg);
+          //document.getElementById("msg").value = "";
+      };
+	
+	  //添加设备
+	  function subRegister(){
+			var type = "register";
+			var msg = document.getElementById("register_imei").value;
+			var comment = "NB-IoT黑色板子";
+			var msgs= '{"type":"'+type+'","msg":"'+msg+'","comment":"'+comment+'"} ';
+			ws.send(msgs);
+			
+      };
+	  //删除设备
+	  function subDelete(){
+			var type = "delete";
+			var msg = document.getElementById("delete_imei").value;
+			var token = document.getElementById("delete_imei_token").value;
+			var msgs= '{"type":"'+type+'","msg":"'+msg+'","token":"'+token+'"} ';
+			ws.send(msgs);
+      };
+	  //修改设备
+	  function subUpdate(){
+			var type = "update";
+			var src_msg = document.getElementById("src_imei").value;
+			var src_token = document.getElementById("src_imei_token").value;
+			var dst_msg = document.getElementById("dst_imei").value;
+			var dst_comment = document.getElementById("dst_comment").value;
+			var msgs= '{"type":"'+type+'","src_msg":"'+src_msg+'","src_token":"'+src_token+'","dst_msg":"'+dst_msg+'","dst_comment":"'+dst_comment+'"} ';
+			ws.send(msgs);
+      };
+	  
+	  //请求订阅设备
+	  function sub_imei(){
+			var type = "address";
+			var msg = document.getElementById("sub_imei").value;
+			var token = document.getElementById("sub_imei_token").value;
+			var msgs= '{"type":"'+type+'","msg":"'+msg+'","token":"'+token+'"} ';
+			ws.send(msgs);
+			
+      };
+	  
+	  //发布数据
+	  function pub_imei_content(){
+			var type = "content";
+			var address = document.getElementById("pub_imei").value;
+			var msg = document.getElementById("pub_imei_content").value;
+			var token = document.getElementById("pub_imei_token").value;
+			var msgs= '{"type":"'+type+'","address":"'+address+'","msg":"'+msg+'","token":"'+token+'"} ';
+			document.getElementById("pub").value = msgs;
+			ws.send(msgs);
+      };
+	 
+	 
+	  
+				  
+      //断开连接
+      function interrupt(){ 
+    	  if(ws.readyState==0){ 
+    		  //正在建立连接；
+    		  alert("正在建立连接，请勿断开！");
+    	  }else if(ws.readyState==1){ 
+    		  //连接成功建立，可正常通信
+    		  //confirm("连接已建立，确定要断开吗？");
+    		  var r=confirm("连接已建立，确定要断开吗？")
+    		  if (r==true)//确定断开
+    		  {
+    			  ws.close();//websocket断开与服务器的连接
+    			  //断开连接会执行方法
+    	          ws.onclose = function(){
+    	        	  alert("断开连接！");
+    	          }
+    		  }
+    	  }else if(ws.readyState == 2){ 
+    		  //连接正在进行关闭握手，即将关闭
+    		  alert("连接即将关闭，请勿着急！");
+    	  }else if(ws.readyState == 3){ 
+    		  //已经关闭连接或者没有建立连接
+    		  alert("连接未建立！");
+    	  }
+      }
+  </script>
+  
+</html>

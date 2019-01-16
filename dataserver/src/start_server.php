@@ -76,17 +76,6 @@ $ws_worker->onWorkerStart = function () {
 				$ackerror =  "udp error 1!";
 				$udp_connection->send($ackerror);
 				Common::cmdOutput("UDP数据格式错误");
-				/*
-				//判定是否有WS用户订阅了该TCP设备,通过WS告知用户错误
-				if(isset($ws_worker->wsAddressToken[$header_address_str]))
-				{
-					//向对应的websocket发送错误提示
-					$token = $ws_worker->wsAddressToken[$header_address_str];
-					$content = "ERROR:UDP数据帧头格式错误!";
-					$ack = array("type"=>"content","address"=>"$header_address_str","msg"=>"$content","token"=>"$token");
-					$ws_worker->wsTokenHandle[$token]->send(json_encode($ack, JSON_UNESCAPED_UNICODE));
-				}
-				//*/
 				return;
 			}
 					
@@ -123,7 +112,6 @@ $ws_worker->onWorkerStart = function () {
 			$ws_worker->udpAddressHandle[$header_address_str] = $udp_connection;
 			//刷新活跃时间
 			$ws_worker->aliveAddressTime[$header_address_str] = date("Y-m-d H:i:s");
-			//Common::cmdOutput("ws_worker->udpAddressHandle");
 			//判定类型是否合法		
 			$type = substr($data,9,1);
 			$type = Common::stringToHexArray($type);

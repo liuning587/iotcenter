@@ -2106,3 +2106,41 @@ Stack trace:
 #8 C:\Users\Administrator\Desktop\iot-hub-src-v2.0_20180809\start_server.php(774): Workerman\Worker::runAll()
 #9 {main}
 2018-10-26 15:06:08 pid:1 Worker process terminated
+2019-01-16 09:30:15 pid:1 exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO)' in D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\mysql-master\src\Connection.php:1714
+Stack trace:
+#0 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\mysql-master\src\Connection.php(1714): PDO->__construct('mysql:dbname=ny...', 'root', '', Array)
+#1 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\mysql-master\src\Connection.php(1700): Workerman\MySQL\Connection->connect()
+#2 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\start_server.php(31): Workerman\MySQL\Connection->__construct('localhost', '3306', 'root', '', 'ny-iot-hub')
+#3 [internal function]: {closure}(Object(Workerman\Worker))
+#4 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\workerman\Worker.php(2066): call_user_func(Object(Closure), Object(Workerman\Worker))
+#5 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\workerman\Worker.php(1156): Workerman\Worker->run()
+#6 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\workerman\Worker.php(1102): Workerman\Worker::forkWorkersForWindows()
+#7 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\workerman\Worker.php(459): Workerman\Worker::forkWorkers()
+#8 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\start_server.php(780): Workerman\Worker::runAll()
+#9 {main}
+2019-01-16 09:30:16 pid:1 Worker process terminated
+2019-01-16 09:30:17 pid:1 exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO)' in D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\mysql-master\src\Connection.php:1714
+Stack trace:
+#0 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\mysql-master\src\Connection.php(1714): PDO->__construct('mysql:dbname=ny...', 'root', '', Array)
+#1 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\mysql-master\src\Connection.php(1700): Workerman\MySQL\Connection->connect()
+#2 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\start_server.php(31): Workerman\MySQL\Connection->__construct('localhost', '3306', 'root', '', 'ny-iot-hub')
+#3 [internal function]: {closure}(Object(Workerman\Worker))
+#4 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\workerman\Worker.php(2066): call_user_func(Object(Closure), Object(Workerman\Worker))
+#5 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\workerman\Worker.php(1156): Workerman\Worker->run()
+#6 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\workerman\Worker.php(1102): Workerman\Worker::forkWorkersForWindows()
+#7 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\workerman\Worker.php(459): Workerman\Worker::forkWorkers()
+#8 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\start_server.php(780): Workerman\Worker::runAll()
+#9 {main}
+2019-01-16 09:30:18 pid:1 Worker process terminated
+2019-01-16 09:30:19 pid:1 exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO)' in D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\mysql-master\src\Connection.php:1714
+Stack trace:
+#0 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\mysql-master\src\Connection.php(1714): PDO->__construct('mysql:dbname=ny...', 'root', '', Array)
+#1 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\mysql-master\src\Connection.php(1700): Workerman\MySQL\Connection->connect()
+#2 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\start_server.php(31): Workerman\MySQL\Connection->__construct('localhost', '3306', 'root', '', 'ny-iot-hub')
+#3 [internal function]: {closure}(Object(Workerman\Worker))
+#4 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\workerman\Worker.php(2066): call_user_func(Object(Closure), Object(Workerman\Worker))
+#5 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\workerman\Worker.php(1156): Workerman\Worker->run()
+#6 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\workerman\Worker.php(1102): Workerman\Worker::forkWorkersForWindows()
+#7 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\vendor\workerman\Worker.php(459): Workerman\Worker::forkWorkers()
+#8 D:\svn\hc-nav.com\9_github\iotcenter\dataserver\src\start_server.php(780): Workerman\Worker::runAll()
+#9 {main}
